@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+#-*- encoding: utf-8 -*-
 '''
 @File    :   daka.py
 @Time    :   2020/12/28 19:31:31
@@ -12,6 +12,7 @@ import re
 import sys
 import urllib
 from http import cookiejar
+import time
 
 def getLt(response): 
     #获取流水号
@@ -72,4 +73,8 @@ if __name__ == "__main__":
     }
     postdata2 = urllib.parse.urlencode(formdata).encode("utf-8")
     response3 = opener.open('https://e-report.neu.edu.cn/api/notes', postdata2)
-    print(response3.status)
+    status =response3.status
+    if status>=200 and status <=300:
+    	print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),"success!",status)
+    else:
+    	print(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()),"failed!",status)
